@@ -1,5 +1,7 @@
 import { useState } from 'react'
+// import supabase from './config/supabase'
 import './styles.css'
+
 function App() {
 
   const [count, setCount] = useState(0)
