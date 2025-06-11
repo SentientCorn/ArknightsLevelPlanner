@@ -1,6 +1,8 @@
-// import { useState } from 'react'
+import { useState } from 'react';
+import LoginModal from '../components/LoginModal';
 
 const Landing: React.FC = () => {
+  const [showLogin, setShowLogin] = useState(false);
 
 return (
     <div className="min-h-screen flex flex-col items-center justify-center p-8">
@@ -16,15 +18,16 @@ return (
             <div className="text-slate-400 text-lg font-medium">Large Box</div>
           </div>
         </div>
-        
         <div style={{backgroundColor: '#3A3A3A'}} className="flex-1 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-12 min-h-96">
           <div className="h-full flex items-center justify-center">
             <div className="text-slate-400 text-lg font-medium">Small Box</div>
           </div>
         </div>
       </div>
+      <LoginModal isOpen={showLogin} onClose={() => setShowLogin(false)} />
     </div>
   );
+
 
 }
 
