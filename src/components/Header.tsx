@@ -33,11 +33,11 @@ const Header: React.FC= () => {
         </div>
         
         <div className="flex items-center space-x-4">
-          <button
+          {/* <button
             className="text-lg font-semibold text-gray-900" 
             onClick={() => setShowLogin(true)}>
             Login
-          </button>
+          </button> */}
 
           <button
             onClick={toggleSidebar}
@@ -49,13 +49,17 @@ const Header: React.FC= () => {
         </div>
       </header>
 
+      {/* Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full shadow- transform transition-transform duration-300 ease-in-out z-50 ${
+        className={`fixed top-0 right-0 h-full transform transition-transform duration-300 ease-in-out z-50 ${
+          isSidebarOpen ? 'shadow-[-5px_0px_30px_rgba(0,0,0,0.4)]' : ''
+        } ${
           isSidebarOpen ? '-translate-x-0' : 'translate-x-full'
         }`}
         style={{ width: '280px', backgroundColor: '#C7B996' }}
       >
-        
+      
+        {/* Sidebar content */}
         <div style={{backgroundColor: '#F4E5C0'}} className="m-3 p-4 border-gray-1000 rounded-xl">
           <div  className="flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-900">Menu</h2>
@@ -67,6 +71,34 @@ const Header: React.FC= () => {
               <X size={20} />
             </button>
           </div>
+        </div>
+
+        <div
+          className="m-3 p-2 border-gray-1000 rounded-xl flex flex-col items-center bg-[#F4E5C0] space-x-4">
+            <div className="w-20 h-20 rounded-full mx-auto  justify-center overflow-hidden border-2 border-[#C7B996] mb-3 mt-3">
+              <img
+                src="src\assets\runglogin1.png"
+                alt="Profile"
+                className="w-full h-full rounded-full object-cover"
+              />
+            </div>
+            <div>
+              <div className="w-35 border-t border-[#C7B996] my-2"></div>
+              <div className="text-lg font-semibold text-gray-900 text-center">Hello, Guest!</div>
+              <div className="w-full border-t border-[#C7B996] my-2"></div>
+              <div className="text-sm text-gray-600 text-center mb-3">Please Log In!</div>
+              <div className="w-full border-t border-[#C7B996] my-2"></div>
+              <div className="flex mx-auto justify-center mt-4 mb-3">
+                <button>
+                  <span
+                    className="text-sm font-semibold text-gray-900 bg-[#C7B996] px-4 py-2 rounded-md hover:bg-[#AA9766] transition-colors"
+                    onClick={() => setShowLogin(true)}
+                  >
+                    Log In
+                  </span>
+                </button>
+              </div>
+            </div>
         </div>
 
         <nav style={{backgroundColor: '#F4E5C0'}} className="m-3 p-2 border-gray-1000 rounded-xl">
