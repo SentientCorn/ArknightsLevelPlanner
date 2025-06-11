@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import LoginModal from '../components/LoginModal';
+import Operator from '../components/Operator';
 
 const Landing: React.FC = () => {
   const [showLogin, setShowLogin] = useState(false);
+  const [selectedBox, setSelectedBox] = useState<string | null>(null);
 
-return (
+  return (
     <div className="min-h-screen flex flex-col items-center justify-center p-8">
       {/* Title */}
       <h1 className="text-4xl md:text-6xl font-bold text-white mb-16 text-center">
@@ -13,22 +15,45 @@ return (
       
       {/* Containers*/}
       <div className="flex flex-col md:flex-row gap-8 w-full max-w-6xl">
-        <div style={{backgroundColor: '#3A3A3A'}} className="flex-2 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-12 min-h-96">
+        <div style={{backgroundColor: '#3A3A3A'}} className="flex-2 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-1 min-h-96">
+
           <div className="h-full flex items-center justify-center">
-            <div className="text-slate-400 text-lg font-medium">Large Box</div>
+            {selectedBox === 'operator' ? (
+              <Operator />
+            ) : (
+              <div className="text-slate-400 text-lg font-medium">Large Box</div>
+            )}
+
           </div>
         </div>
-        <div style={{backgroundColor: '#3A3A3A'}} className="flex-1 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-12 min-h-96">
-          <div className="h-full flex items-center justify-center">
-            <div className="text-slate-400 text-lg font-medium">Small Box</div>
+
+        <div style={{backgroundColor: '#2D2D2D'}} className="flex-1 rounded-3xl shadow-lg hover:shadow-2xl transition-shadow duration-300 p-6 min-h-96 flex flex-col justify-center">
+          <div className="bg-gradient-to-br from-[#F4E5C0] to-[#E2CBAA] h-full flex flex-col items-center justify-center rounded-2xl gap-6 p-6 shadow-inner">
+            <button
+              className="bg-[#C7B996] hover:bg-[#b3a47d] text-white font-medium px-6 py-3 rounded-lg w-full shadow transition-all duration-200"
+              onClick={() => setSelectedBox('planner')}
+            >
+              Planner
+            </button>
+            <button
+              className="bg-[#C7B996] hover:bg-[#b3a47d] text-white font-medium px-6 py-3 rounded-lg w-full shadow transition-all duration-200"
+              onClick={() => setSelectedBox('operator')}
+            >
+              Operator
+            </button>
+            <button
+              className="bg-[#C7B996] hover:bg-[#b3a47d] text-white font-medium px-6 py-3 rounded-lg w-full shadow transition-all duration-200"
+              onClick={() => setSelectedBox('materials')}
+            >
+              Materials
+            </button>
           </div>
         </div>
+
       </div>
       <LoginModal isOpen={showLogin} onClose={() => setShowLogin(false)} />
     </div>
   );
-
-
 }
 
 export default Landing;
