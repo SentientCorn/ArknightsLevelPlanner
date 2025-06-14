@@ -28,23 +28,37 @@ const Landing: React.FC = () => {
         </div>
 
         <div style={{backgroundColor: '#2D2D2D'}} className="flex-1 rounded-3xl shadow-lg hover:shadow-2xl transition-shadow duration-300 p-6 min-h-96 flex flex-col justify-center">
-          <div className="bg-gradient-to-br from-[#F4E5C0] to-[#E2CBAA] h-full flex flex-col items-center justify-center rounded-2xl gap-6 p-6 shadow-inner">
+          <div className="bg-gradient-to-br from-[var(--kuning1)] to-[#E2CBAA] h-full flex flex-col items-center justify-center rounded-2xl gap-6 p-6 shadow-inner">
             <button
-              className="bg-[#C7B996] hover:bg-[#b3a47d] text-white font-medium px-6 py-3 rounded-lg w-full shadow transition-all duration-200"
-              onClick={() => setSelectedBox('planner')}
-            >
+              className={`${
+                selectedBox === 'planner'
+                ? 'border-4 border-[var(--coklat)] text-[var(--coklat)]'
+                : 'bg-[var(--coklat)] hover:bg-[var(--coklat)] text-white shadow-sm'
+              } font-medium px-6 py-3 rounded-lg w-full shadow transition-all hover:cursor-pointer`}
+              onClickCapture={() => setSelectedBox('planner')}
+              > 
               Planner
             </button>
+
             <button
-              className="bg-[#C7B996] hover:bg-[#b3a47d] text-white font-medium px-6 py-3 rounded-lg w-full shadow transition-all duration-200"
-              onClick={() => setSelectedBox('operator')}
-            >
+              className={`${
+                selectedBox === 'operator'
+                ? 'border-4 border-[var(--coklat)] text-[var(--coklat)]'
+                : 'bg-[var(--coklat)] hover:bg-[var(--coklat)] text-white'
+              } font-medium px-6 py-3 rounded-lg w-full shadow transition-all hover:cursor-pointer`}
+              onClickCapture={() => setSelectedBox('operator')}
+              > 
               Operator
             </button>
+
             <button
-              className="bg-[#C7B996] hover:bg-[#b3a47d] text-white font-medium px-6 py-3 rounded-lg w-full shadow transition-all duration-200"
-              onClick={() => setSelectedBox('materials')}
-            >
+              className={`${
+                selectedBox === 'materials'
+                ? 'border-4 border-[var(--coklat)] text-[var(--coklat)]'
+                : 'bg-[var(--coklat)] hover:bg-[var(--coklat)] text-white'
+              } font-medium px-6 py-3 rounded-lg w-full shadow transition-all hover:cursor-pointer`}
+              onClickCapture={() => setSelectedBox('materials')}
+              > 
               Materials
             </button>
           </div>
