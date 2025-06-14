@@ -65,7 +65,7 @@ const Operator: React.FC<OperatorProps> = ({ selected, onSelect }) => {
     <div className="h-full w-full p-4">
       <h2 className="text-2xl font-bold mb-4 text-center text-white">Operator Selection</h2>
       <div
-      className="max-h-[500px] overflow-y-auto rounded-lg p-2 bg-[var(--coklat)]"
+      className="max-h-[500px] overflow-y-auto rounded-lg p-2 bg-[var(--biru1)] shadow-sm"
       style={{ scrollbarGutter: "stable" }} 
       >
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1.5">
@@ -73,13 +73,13 @@ const Operator: React.FC<OperatorProps> = ({ selected, onSelect }) => {
         <div
           key={item.id}
           onClick={() => onSelect(item)}
-          className={`overflow-hidden rounded-lg shadow hover:shadow-lg transition-shadow duration-300 cursor-pointer ${selected?.id === item.id ? "ring-4 ring-gray-500" : ""} bg-white`}
+          className={`overflow-hidden justify-center items-center my-2 rounded-lg shadow hover:shadow-lg transition-shadow duration-300 mx-1.5 cursor-pointer ${selected?.id === item.id ? "ring-4 ring-white" : ""} bg-[var(--biru2)]`}
         >
 
           <img
           src={item.image_url}
           alt={item.name}
-          className="w-full h-50 object-cover mx-auto overflow-hidden"
+          className="w-full h-40 object-cover mx-2 mt-2 overflow-hidden"
           />
           <div className="p-2 text-center text-sm font-medium">{item.name}</div>
         </div>

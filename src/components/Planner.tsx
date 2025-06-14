@@ -439,9 +439,10 @@ const Planner: React.FC<ReceivedOp> = (selectedOperator) => {
   };
 
   const getMaterialStatusColor = (required: number, owned: number) => {
-    if (owned >= required) return 'text-green-600 bg-green-50 border-green-200';
-    if (owned >= required * 0.5) return 'text-yellow-600 bg-yellow-50 border-yellow-200';
-    return 'text-red-600 bg-red-50 border-red-200';
+    if (owned >= required) return 'text-[#FFE1E9] bg-[#673342] border-[#3C1722]';
+    if (owned >= required * 0.5) return 'text-[#673342] bg-[#C9899B] border-[#673342]';
+    return 'text-[#3C1722] bg-[#FFE1E9] border-[#C9899B]';
+    
   };
 
   const calculateRequiredMaterials = () => {
@@ -506,26 +507,26 @@ const Planner: React.FC<ReceivedOp> = (selectedOperator) => {
   return (
     <div className="h-full w-full p-4 flex gap-4">
       {/* Character and Upgrades */}
-      <div className="flex-1 space-y-4 max-h-[calc(100vh-2rem)] overflow-y-auto bg-gradient-to-br from-[#F4E5C0] to-[#E2CBAA] p-2 rounded-lg" style={{ scrollbarGutter: "stable" }}>
+      <div className="flex-1 space-y-3 max-h-[calc(100vh-2rem)] overflow-y-auto bg-[var(--biru1)] p-2 rounded-lg" style={{ scrollbarGutter: "stable" }}>
         {/* Selected Character */}
-        <div className="bg-white rounded-lg p-4 shadow">
-          <h2 className="text-2xl font-bold mb-4 text-center">Operator Planner</h2>
+        <div className="bg-[var(--biru2)] mt-2 mx-2 rounded-lg p-4 shadow">
+          <h2 className="text-2xl font-bold mb-4 text-center text-gray-900">Operator Planner</h2>
           <div className="flex items-center gap-4">
             <img 
               src={character.image} 
               alt={character.name}
-              className="w-24 h-30 object-cover rounded-lg border-2 border-gray-300"
+              className="w-24 h-30 object-cover rounded-lg border-3 border-[var(--biru1)] shadow-lg"
             />
             <div className="flex-1">
               <h3 className="text-xl font-semibold">{character.name}</h3>
               
               {/* Current Level */}
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-sm font-medium">Current Level:</span>
+                <span className="text-sm font-medium text-gray-900">Current Level:</span>
                 <select 
                   value={character.level}
                   onChange={(e) => handleLevelChange(Number(e.target.value))}
-                  className="border rounded px-2 py-1 text-sm"
+                  className="border rounded px-2 py-1 text-sm text-gray-900"
                 >
                   {Array.from({ length: character.maxLevel }, (_, i) => (
                     <option key={i + 1} value={i + 1}>
@@ -533,12 +534,12 @@ const Planner: React.FC<ReceivedOp> = (selectedOperator) => {
                     </option>
                   ))}
                 </select>
-                <span className="text-sm text-gray-600">/{character.maxLevel}</span>
+                <span className="text-sm text-gray-900">/{character.maxLevel}</span>
               </div>
 
               {/* Target Level */}
               <div className="flex items-center gap-2 mb-2">
-                <span className="text-sm font-medium">Target Level:</span>
+                <span className="text-sm font-medium text-gray-900">Target Level:</span>
                 <select 
                   value={character.targetLevel}
                   onChange={(e) => handleTargetLevelChange(Number(e.target.value))}
@@ -550,13 +551,13 @@ const Planner: React.FC<ReceivedOp> = (selectedOperator) => {
                     </option>
                   ))}
                 </select>
-                <span className="text-sm text-gray-600">/{character.maxLevel}</span>
+                <span className="text-sm text-gray-900">/{character.maxLevel}</span>
               </div>
 
-              <p className="text-gray-600">Elite {character.elite.currentPromotion}</p>
-              <div className="w-48 bg-gray-200 rounded-full h-2 mt-2">
+              <p className="text-gray-900">Elite {character.elite.currentPromotion}</p>
+              <div className="w-48 bg-white rounded-full h-2 mt-2">
                 <div 
-                  className="bg-blue-500 h-2 rounded-full transition-all duration-300" 
+                  className="bg-[var(--biru1)] h-2 rounded-full transition-all duration-300" 
                   style={{ width: `${(character.level / character.maxLevel) * 100}%` }}
                 />
               </div>
@@ -565,9 +566,9 @@ const Planner: React.FC<ReceivedOp> = (selectedOperator) => {
         </div>
 
         {/* Elite Promotion */}
-        <div className="bg-white rounded-lg p-4 shadow">
+        <div className="bg-[var(--biru2)] mx-2 rounded-lg p-4 shadow">
           <h3 className="text-lg font-semibold mb-3">Elite Promotion</h3>
-          <div className="p-3 rounded-lg border-2 bg-purple-100 border-purple-300">
+          <div className="p-3 rounded-lg border-3 bg-[var(--biru2)] border-[var(--biru1)]">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-3">
                 <img 
@@ -577,7 +578,7 @@ const Planner: React.FC<ReceivedOp> = (selectedOperator) => {
                 />
                 <div>
                   <h4 className="font-medium">{character.elite.name}</h4>
-                  <span className="text-sm text-gray-600">Elite Promotion</span>
+                  <span className="text-sm text-gray-900">Elite Promotion</span>
                 </div>
               </div>
             </div>
@@ -617,11 +618,11 @@ const Planner: React.FC<ReceivedOp> = (selectedOperator) => {
         </div>
 
         {/* Skills Section */}
-        <div className="bg-white rounded-lg p-4 shadow">
+        <div className="bg-[var(--biru2)] mx-2 rounded-lg p-4 shadow">
           <h3 className="text-lg font-semibold mb-3">Skills</h3>
           <div className="space-y-3">
             {character.skills.map((skill) => (
-              <div key={skill.id} className="p-3 rounded-lg border-2 bg-blue-100 border-blue-300">
+              <div key={skill.id} className="p-3 rounded-lg border-3 bg-[var(--biru2)] border-[var(--biru1)]">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-3">
                     <img 
@@ -631,7 +632,7 @@ const Planner: React.FC<ReceivedOp> = (selectedOperator) => {
                     />
                     <div>
                       <h4 className="font-medium">{skill.name}</h4>
-                      <span className="text-sm text-gray-600">Skill</span>
+                      <span className="text-sm text-gray-800">Skill</span>
                     </div>
                   </div>
                 </div>
@@ -705,11 +706,11 @@ const Planner: React.FC<ReceivedOp> = (selectedOperator) => {
         </div>
 
         {/* Modules Section */}
-        <div className="bg-white rounded-lg p-4 shadow">
+        <div className="bg-[var(--biru2)] mx-2 mb-2 rounded-lg p-4 shadow">
           <h3 className="text-lg font-semibold mb-3">Modules</h3>
           <div className="space-y-3">
             {character.modules.map((module) => (
-              <div key={module.id} className="p-3 rounded-lg border-2 bg-green-100 border-green-300">
+              <div key={module.id} className="p-3 rounded-lg border-3 bg-[var(--biru2)] border-[var(--biru1)]">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-3">
                     <img 
@@ -719,7 +720,7 @@ const Planner: React.FC<ReceivedOp> = (selectedOperator) => {
                     />
                     <div>
                       <h4 className="font-medium">{module.name}</h4>
-                      <span className="text-sm text-gray-600">Module</span>
+                      <span className="text-sm text-gray-900">Module</span>
                     </div>
                   </div>
                 </div>
@@ -763,16 +764,16 @@ const Planner: React.FC<ReceivedOp> = (selectedOperator) => {
 
       {/* Required Materials */}
       <div className="w-80">
-        <div className="bg-gradient-to-br from-[#F4E5C0] to-[#E2CBAA] rounded-lg p-4 shadow h-full max-h-[calc(100vh-2rem)] overflow-y-auto" style={{ scrollbarGutter: "stable" }}>
-          <div className="bg-white rounded-lg p-4 shadow mb-4">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-lg font-semibold">Required Materials</h3>
+        <div className="bg-[var(--biru1)] rounded-lg p-4 shadow h-full max-h-[calc(100vh-2rem)]">
+          <div className="bg-[var(--biru2)] rounded-lg p-4 shadow mb-4">
+            <div className="flex items-center justify-between mb-3 p-2">
+              <h3 className="text-lg font-bold">Required Materials</h3>
               <button
                 onClick={calculateRequiredMaterials}
                 className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
                   isCalculated 
-                    ? 'bg-green-500 hover:bg-green-600 text-white' 
-                    : 'bg-blue-500 hover:bg-blue-600 text-white'
+                    ? 'bg-[var(--biru1)] text-white' 
+                    : 'bg-[var(--biru1)] hover:bg-[#40485F] hover:cursor-pointer text-white'
                 }`}
               >
                 {isCalculated ? '✓ Calculated' : 'Calculate'}
@@ -780,11 +781,11 @@ const Planner: React.FC<ReceivedOp> = (selectedOperator) => {
             </div>
             
             <div 
-              className="space-y-2 max-h-[calc(100vh-12rem)] overflow-y-auto pr-2 border border-gray-200 rounded-lg p-2"
+              className="space-y-2 max-h-[calc(100vh-12rem)] overflow-y-auto pr-2 border-2 border-gray-200 rounded-lg p-2"
               style={{ scrollbarGutter: "stable" }}
             >
               {!isCalculated ? (
-                <div className="text-center text-gray-500 py-8">
+                <div className="text-center text-white py-8">
                   Click "Calculate" to see required materials
                 </div>
               ) : calculatedMaterials.length === 0 ? (
@@ -816,14 +817,14 @@ const Planner: React.FC<ReceivedOp> = (selectedOperator) => {
                             }
                           </span>
                         </div>
-                        <div className="w-full bg-gray-200 rounded-full h-1.5 mt-1">
+                        <div className="w-full bg-white rounded-full h-1.5 mt-1">
                           <div 
                             className={`h-1.5 rounded-full transition-all duration-300 ${
                               material.owned >= material.required 
-                                ? 'bg-green-500' 
+                                ? 'bg-[#3C1722]' 
                                 : material.owned >= material.required * 0.5 
-                                  ? 'bg-yellow-500' 
-                                  : 'bg-red-500'
+                                  ? 'bg-[#673342]' 
+                                  : 'bg-[#A87181]'
                             }`}
                             style={{ 
                               width: `${Math.min((material.owned / material.required) * 100, 100)}%` 
