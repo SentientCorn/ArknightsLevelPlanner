@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import LoginModal from '../components/LoginModal';
 import Operator from '../components/Operator';
+import Planner from '../components/Planner';
 
 const Landing: React.FC = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -15,10 +16,12 @@ const Landing: React.FC = () => {
       
       {/* Containers*/}
       <div className="flex flex-col md:flex-row gap-8 w-full max-w-6xl">
-        <div style={{backgroundColor: '#3A3A3A'}} className="flex-2 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-1 min-h-96">
+        <div style={{backgroundColor: '#2D2D2D'}} className="flex-2 rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-1 min-h-96">
 
           <div className="h-full flex items-center justify-center">
-            {selectedBox === 'operator' ? (
+            {selectedBox === 'planner' ? (
+              <Planner />
+            ) : selectedBox === 'operator' ? (
               <Operator />
             ) : (
               <div className="text-slate-400 text-lg font-medium">Large Box</div>
