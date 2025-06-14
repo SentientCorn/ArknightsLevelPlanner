@@ -63,11 +63,11 @@ const Operator: React.FC<OperatorProps> = ({ selected, onSelect }) => {
       </div>
     ) : (
     <div className="h-full w-full p-4">
-      <h2 className="text-2xl font-bold mb-4 text-center text-white">Operator Selection</h2>
       <div
-      className="max-h-[500px] overflow-y-auto rounded-lg p-2 bg-[var(--biru1)] shadow-sm"
+      className="max-h-[500px] rounded-lg p-2 bg-[var(--biru1)] shadow-sm"
       style={{ scrollbarGutter: "stable" }} 
       >
+      <h2 className="text-2xl font-bold mb-4 text-center text-white">Operator Selection</h2>
       <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1.5">
         {items.map((item) => (
         <div
