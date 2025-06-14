@@ -1,4 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import supabase from "../config/supabase";
+
+interface Item {
+  id: string;
+  name: string;
+  image_url: string;
+  class_id: number;
+  rarity: number;
+}
+
+// 1. Define props interface for your receiving component
+interface ReceivedOp {
+  selectedOperator: Item | null;
+}
 
 interface Character {
   id: number;
@@ -258,10 +272,98 @@ const selectedCharacter: Character = {
   ]
 };
 
-const Planner: React.FC = () => {
+const fetchOperatorData = async (operatorId: string) => {
+  // Fetch Elites and Elite Materials
+  const { data: elites, error: eliteError } = await supabase
+    .from('elites')
+    .select(`
+      id,
+      name,
+      image_url,
+      lmd,
+      type,
+      elite_materials:elite_materials(
+        quantity,
+        material:materials (
+          id,
+          name,
+          image_url
+        )
+      )
+    `)
+    .eq('operator_id', operatorId);
+
+  // // Fetch Modules, Stages and Materials
+  // const { data: modules, error: moduleError } = await supabase
+  //   .from('modules')
+  //   .select(`
+  //     id,
+  //     title,
+  //     image_url,
+  //     module,
+  //     module_stages:module_stages (
+  //       id,
+  //       stage,
+  //       lmd,
+  //       module_materials:module_materials (
+  //         quantity,
+  //         material:materials (
+  //           id,
+  //           name,
+  //           image_url
+  //         )
+  //       )
+  //     )
+  //   `)
+  //   .eq('operator_id', operatorId);
+
+  // Fetch Skill Levels and Materials
+  const { data: skillLevels, error: skillError } = await supabase
+    .from('skill_levels')
+    .select(`
+      id,
+      level,
+      lmd,
+      skill_level_materials:skill_level_materials (
+        quantity,
+        material:materials (
+          id,
+          name,
+          image_url
+        )
+      )
+    `)
+    .eq('operator_id', operatorId);
+
+  if (eliteError  || skillError) {
+    console.error("Fetching errors:", eliteError, skillError);
+    return null;
+  }
+
+  return {
+    elites,
+
+    skillLevels
+  };
+};
+
+const Planner: React.FC<ReceivedOp> = (selectedOperator) => {
   const [character, setCharacter] = useState<Character>(selectedCharacter);
   const [calculatedMaterials, setCalculatedMaterials] = useState<any[]>([]);
   const [isCalculated, setIsCalculated] = useState(false);
+
+  useEffect(() => {
+    // Alert op ID of selectedOperator
+    if (selectedOperator.selectedOperator) {
+      console.log(`Selected Operator ID: ${selectedOperator.selectedOperator.id}`);
+      fetchOperatorData(selectedOperator.selectedOperator.id).then(data => {
+        console.log("Fetched Operator Data:", data);
+    }
+      );
+    }
+  
+  }, [selectedOperator.selectedOperator]);
+
 
   const handleLevelChange = (newLevel: number) => {
     setCharacter(prev => ({

@@ -3,9 +3,19 @@ import LoginModal from '../components/LoginModal';
 import Operator from '../components/Operator';
 import Planner from '../components/Planner';
 
+interface Item {
+  id: string;
+  name: string;
+  image_url: string;
+  class_id: number;
+  rarity: number;
+}
+
 const Landing: React.FC = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [selectedBox, setSelectedBox] = useState<string | null>(null);
+  const [selectedOperator, setSelectedOperator] = useState<Item | null>(null);
+
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-8">
@@ -20,9 +30,13 @@ const Landing: React.FC = () => {
 
           <div className="h-full flex items-center justify-center">
             {selectedBox === 'planner' ? (
-              <Planner />
+              <Planner 
+              selectedOperator={selectedOperator} />
             ) : selectedBox === 'operator' ? (
-              <Operator />
+              <Operator 
+              selected={selectedOperator} 
+              onSelect={setSelectedOperator} 
+            />
             ) : (
               <div className="text-slate-400 text-lg font-medium">Large Box</div>
             )}
@@ -31,37 +45,31 @@ const Landing: React.FC = () => {
         </div>
 
         <div style={{backgroundColor: '#2D2D2D'}} className="flex-1 rounded-3xl shadow-lg hover:shadow-2xl transition-shadow duration-300 p-6 min-h-96 flex flex-col justify-center">
-          <div className="bg-gradient-to-br from-[var(--kuning1)] to-[#E2CBAA] h-full flex flex-col items-center justify-center rounded-2xl gap-6 p-6 shadow-inner">
+          <div className="bg-gradient-to-br from-[#F4E5C0] to-[#E2CBAA] h-full flex flex-col items-center justify-start rounded-2xl gap-6 p-6 shadow-inner">
+            
+            {selectedOperator ? (
+            <div className="flex flex-col items-center gap-4 mb-6">
+            
+            <span className="text-gray-800 font-semibold text-lg">Selected operator: {selectedOperator.name}</span>
+               </div>
+              ) : null}
+            
             <button
-              className={`${
-                selectedBox === 'planner'
-                ? 'border-4 border-[var(--coklat)] text-[var(--coklat)]'
-                : 'bg-[var(--coklat)] hover:bg-[var(--coklat)] text-white shadow-sm'
-              } font-medium px-6 py-3 rounded-lg w-full shadow transition-all hover:cursor-pointer`}
-              onClickCapture={() => setSelectedBox('planner')}
-              > 
+              className="bg-[#C7B996] hover:bg-[#b3a47d] text-white font-medium px-6 py-3 rounded-lg w-full shadow transition-all duration-200"
+              onClick={() => setSelectedBox('planner')}
+            >
               Planner
             </button>
-
             <button
-              className={`${
-                selectedBox === 'operator'
-                ? 'border-4 border-[var(--coklat)] text-[var(--coklat)]'
-                : 'bg-[var(--coklat)] hover:bg-[var(--coklat)] text-white'
-              } font-medium px-6 py-3 rounded-lg w-full shadow transition-all hover:cursor-pointer`}
-              onClickCapture={() => setSelectedBox('operator')}
-              > 
+              className="bg-[#C7B996] hover:bg-[#b3a47d] text-white font-medium px-6 py-3 rounded-lg w-full shadow transition-all duration-200"
+              onClick={() => setSelectedBox('operator')}
+            >
               Operator
             </button>
-
             <button
-              className={`${
-                selectedBox === 'materials'
-                ? 'border-4 border-[var(--coklat)] text-[var(--coklat)]'
-                : 'bg-[var(--coklat)] hover:bg-[var(--coklat)] text-white'
-              } font-medium px-6 py-3 rounded-lg w-full shadow transition-all hover:cursor-pointer`}
-              onClickCapture={() => setSelectedBox('materials')}
-              > 
+              className="bg-[#C7B996] hover:bg-[#b3a47d] text-white font-medium px-6 py-3 rounded-lg w-full shadow transition-all duration-200"
+              onClick={() => setSelectedBox('materials')}
+            >
               Materials
             </button>
           </div>

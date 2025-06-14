@@ -1,28 +1,67 @@
 import React, {useState} from "react";
+import supabase from "../config/supabase";
 
 interface Item {
-  id: number;
+  id: string;
   name: string;
-  image: string;
+  image_url: string;
+  class_id: number;
+  rarity: number;
 }
 
-const dummyData: Item[] = Array.from({ length: 20 }, (_, i) => ({
-  id: i + 1,
-  name: `Creature ${i + 1}`,
-  image: `https://via.placeholder.com/150?text=Creature+${i + 1}`,
-}));
+interface OperatorProps {
+  selected: Item | null;
+  onSelect: (item: Item) => void;
+}
 
-const Operator: React.FC = () => {
+const targetIds = ["49f22d5a-1ad9-43d5-a0a6-e8ed941a6599", "4579010a-d00e-48dd-b854-ad2171cd8eef"]; // Saria and SilverAsh
+
+// const dummyData: Item[] = Array.from({ length: 20 }, (_, i) => ({
+//   id: (i + 1).toString(),
+//   name: `Operator ${i + 1}`,
+//   image_url: `https://via.placeholder.com/150?text=Operator+${i + 1}`,
+//   class_id: Math.floor(Math.random() * 5) + 1,
+//   rarity: Math.floor(Math.random() * 6) + 1,
+// }));
+
+const Operator: React.FC<OperatorProps> = ({ selected, onSelect }) => {
   const [items, setItems] = useState<Item[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   React.useEffect(() => {
 
-    //TODO: FETCH DATA HERE
-    setItems(dummyData);
+    const fetchOps = async () => {
+      setLoading(true);
+      try {
+        const { data, error } = await supabase
+          .from('operators')
+          .select('*')
+          .in("id", targetIds)
+          .order('id', { ascending: true });
+
+        if (error) {
+          throw error;
+        }
+
+        if (data) {
+          setItems(data);
+        }
+      } catch (error) {
+        console.error("Error fetching operators:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchOps();
 
   }, []);
 
   return (
+    loading ? (
+      <div className="flex items-center justify-center h-full">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-gray-200"></div>
+      </div>
+    ) : (
     <div className="h-full w-full p-4">
       <h2 className="text-2xl font-bold mb-4 text-center text-white">Operator Selection</h2>
       <div
@@ -33,12 +72,14 @@ const Operator: React.FC = () => {
         {items.map((item) => (
         <div
           key={item.id}
-          className=" overflow-hidden rounded-lg shadow hover:shadow-lg transition-shadow duration-300 cursor-pointer bg-white"
+          onClick={() => onSelect(item)}
+          className={`overflow-hidden rounded-lg shadow hover:shadow-lg transition-shadow duration-300 cursor-pointer ${selected?.id === item.id ? "ring-4 ring-gray-500" : ""} bg-white`}
         >
+
           <img
-          src={item.image}
+          src={item.image_url}
           alt={item.name}
-          className="w-full h-50 object-cover text-center"
+          className="w-full h-50 object-cover mx-auto overflow-hidden"
           />
           <div className="p-2 text-center text-sm font-medium">{item.name}</div>
         </div>
@@ -46,6 +87,7 @@ const Operator: React.FC = () => {
       </div>
       </div>
     </div>
+    )
   );
 };
 
