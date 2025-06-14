@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { X } from "lucide-react";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -26,22 +27,26 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content relative top-0 right-0 p-6 shadow-lg w-full max-w-md mx-auto"
-      style={{ backgroundColor: '#F4E5C0', borderRadius: '12px' }}
+      style={{ backgroundColor: 'var(--kuning1)', borderRadius: '12px' }}
       >
-        <button 
-            className="modal-close" 
-            onClick={onClose}>&times;
-        </button>
-        
-        <h2 className='mb-4 font-semibold'>Log In</h2>
-        <form onSubmit={handleSubmit}>
+        <div className='flex justify-items items-center justify-between mb-3'>
+          <h2 className='font-semibold justify-center mb-1'>Log In</h2>
+          <button
+              onClick={onClose}
+              className="p-1 rounded-md transition-colors hover:cursor-pointer hover:bg-[var(--kuning2)]"
+              aria-label="Close modal"
+              >
+              <X size={20} />
+          </button>
+        </div>
 
+          <form onSubmit={handleSubmit}>
           <div>
             <label>Email:</label>
             <div>
                 <input 
-                className='mt-2 w-full p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-[#AA9766]'
-                style={{ backgroundColor: '#C7B996' }}
+                className='mt-2 w-full p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--coklat)]'
+                style={{ backgroundColor: 'var(--kuning2)' }}
                 type="email" value={email} onChange={e => setEmail(e.target.value)} required
                 />
             </div>
@@ -51,8 +56,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
             <label >Password:</label>
             <div>
                 <input 
-                className='mt-2 w-full p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-[#AA9766]'
-                style={{ backgroundColor: '#C7B996' }}
+                className='mt-2 w-full p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--coklat)]'
+                style={{ backgroundColor: 'var(--kuning2)' }}
                 type="password" value={password} onChange={e => setPassword(e.target.value)} required />
             </div>
           </div>
@@ -60,7 +65,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
           {error && <p style={{ color: 'red' }}>{error}</p>}
 
           <button
-            className='block mt-4 mx-auto w-[40%]  bg-[#C7B996] p-2 rounded-md transition-colors hover:bg-[#AA9766] hover:cursor-pointer'
+            className='block mt-4 mx-auto w-[40%]  bg-[var(--kuning2)] p-2 rounded-md transition-colors hover:bg-[var(--coklat)] hover:cursor-pointer'
             type="submit">Login
           </button>
         </form>

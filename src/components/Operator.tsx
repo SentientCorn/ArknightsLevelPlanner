@@ -26,19 +26,19 @@ const Operator: React.FC = () => {
     <div className="h-full w-full p-4">
       <h2 className="text-2xl font-bold mb-4 text-center text-white">Operator Selection</h2>
       <div
-      className="max-h-[500px] overflow-y-auto rounded-lg bg-gradient-to-br from-[#F4E5C0] to-[#E2CBAA] p-2"
+      className="max-h-[500px] overflow-y-auto rounded-lg p-2 bg-[var(--kuning2)]"
       style={{ scrollbarGutter: "stable" }} 
       >
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-1.5">
         {items.map((item) => (
         <div
           key={item.id}
-          className=" overflow-hidden shadow hover:shadow-lg transition-shadow duration-300 cursor-pointer bg-white"
+          className=" overflow-hidden rounded-lg shadow hover:shadow-lg transition-shadow duration-300 cursor-pointer bg-white"
         >
           <img
           src={item.image}
           alt={item.name}
-          className="w-full h-50 object-cover"
+          className="w-full h-50 object-cover text-center"
           />
           <div className="p-2 text-center text-sm font-medium">{item.name}</div>
         </div>
